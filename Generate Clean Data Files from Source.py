@@ -23,7 +23,7 @@ timestamp_string: str = get_file_name_friendly_timestamp()
 
 # Declare, initialize, and configure a Logger object to log script events.
 logger: Logger = getLogger(name='Generate Clean Data Files from Source')
-basicConfig(filename=f'Generate Clean Data Files from Source {timestamp_string}.log', encoding='utf-8',
+basicConfig(filename=f'Logs/Generate Clean Data Files from Source {timestamp_string}.log', encoding='utf-8',
             filemode='w', level=logging.INFO, format='%(asctime)s\t%(name)s\t%(levelname)s\t%(message)s')
 
 logger.info('Starting.')
@@ -45,7 +45,7 @@ logger.info('Unnecessary columns dropped.')
 # Export a copy of the cleaned data as a CSV file.
 logger.info('Exporting cleaned data as CSV file.')
 df.to_csv(
-    path_or_buf=f'Apple Health {timestamp_string} Cleaned.csv', index=False)
+    path_or_buf=f'Output/Apple Health {timestamp_string} Cleaned.csv', index=False)
 logger.info('CSV file exported.')
 
 # If envconfig's DATA_SAMPLE_SIZE is set to a value greater than zero
@@ -54,7 +54,7 @@ if envconfig.DATA_SAMPLE_SIZE > 0:
     logger.info('Creating data sample file.')
     df = df.sample(envconfig.DATA_SAMPLE_SIZE)
     df.to_csv(
-        path_or_buf=f'Apple Health {timestamp_string} Cleaned Sample.csv', index=False)
+        path_or_buf=f'Output/Apple Health {timestamp_string} Cleaned Sample.csv', index=False)
     logger.info('Data sample file created.')
 else:
     logger.info('Skipping data sample creation due to DATA_SAMPLE_SIZE setting.')
