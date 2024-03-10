@@ -37,10 +37,12 @@ logger.info('Source data file read. Resulting DataFrame shape: {df.shape}')
 # primarily for performance reasons.
 logger.info('Dropping unnecessary columns.')
 df = df.drop(columns=['HKCharacteristicTypeIdentifierDateOfBirth', 'HKCharacteristicTypeIdentifierBiologicalSex', 'HKCharacteristicTypeIdentifierFitzpatrickSkinType', 'HKCharacteristicTypeIdentifierBloodType', 'HKCharacteristicTypeIdentifierCardioFitnessMedicationsUse', 'workoutActivityType',
-             'WorkoutStatistics', 'WorkoutRoute', 'WorkoutEvent', 'activeEnergyBurned', 'activeEnergyBurnedGoal', 'activeEnergyBurnedUnit', 'appleMoveTime', 'appleMoveTimeGoal', 'appleExerciseTime', 'appleExerciseTimeGoal', 'appleStandHours', 'appleStandHoursGoal', 'RightEye', 'LeftEye'])
+             'WorkoutStatistics', 'WorkoutRoute', 'WorkoutEvent', 'activeEnergyBurned', 'activeEnergyBurnedGoal', 'activeEnergyBurnedUnit', 'appleMoveTime', 'appleMoveTimeGoal', 'appleExerciseTime', 'appleExerciseTimeGoal', 'appleStandHours', 'appleStandHoursGoal', 'RightEye', 'LeftEye', 'sourceVersion', 'MetadataEntry', 'device', 'Record', 'duration', 'durationUnit', 'dateComponents', 'HeartRateVariabilityMetadataList', 'dateIssued', 'expirationDate', 'Attachment', 'brand'])
 logger.info('Unnecessary columns dropped.')
 
-# TODO: Add step in the process to rename the remaining columns to more useful things.
+# Rename the remaining columns to more human-friendly names.
+df.rename(columns={'value': 'Sample Value', 'type': 'Sample Type', 'sourceName': 'Source Device', 'unit': 'UOM',
+          'creationDate': 'Sample Timestamp', 'startDate': 'Start Timestamp', 'endDate': 'End Timestamp'}, inplace=True, errors='ignore')
 
 # Export a copy of the cleaned data as a CSV file.
 logger.info('Exporting cleaned data as CSV file.')
